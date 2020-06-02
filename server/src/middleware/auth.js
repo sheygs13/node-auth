@@ -10,10 +10,13 @@ const auth = (req, res, next) => {
 
    try {
       // verify the token
+      // if valid, set req.user and pass to the next middleware
       const decoded = jwt.verify(token, process.env.jwtSecret);
-      req.user = decoded;
+
+      // attach _id to req.user
+      req.user = decoded.user;
       next(); 
-      
+
    } catch ({ message }) {
      console.error(message);
      res.status(400).send('Invalid token');
