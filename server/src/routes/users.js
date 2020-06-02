@@ -2,6 +2,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import generateJwt from '../utils/jwtAuth';
 import pool from '../../db/db';
+import auth from '../middleware/auth';
 const router = express.Router();
 
 router.post('/auth/signup', async (req, res) => {
@@ -63,5 +64,18 @@ router.post('/auth/signin', async (req, res) => {
       res.status(500).send('Server error');
    }
 });
+
+
+// route to do a  quick check of the validity of the token
+// if false, the 'auth' route catches the error
+router.get('/verify', auth, (req, res) => {
+   try {
+      res.json(true);
+   } catch ({ message}) {
+      console.error(message);
+      res.status(500).send('server error')
+   } 
+});
+
 
 export default router;
