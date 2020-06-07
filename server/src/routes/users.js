@@ -2,14 +2,15 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import HelperUtils from '../utils/HelperUtils';
 import pool from '../../db/db';
-import auth from '../middleware/auth';
+import verifyToken from '../middleware/auth';
 const router = express.Router();
 
 router.post('/auth/signup', async (req, res) => {
    try {
 
-      if (!req.body.name && !req.body.email && !req.body.password) return res.status(400).json({ "message": "name, email, and password fields required." })
-
+      if (!req.body.name && !req.body.email && !req.body.password) { 
+         return res.status(400).json({ "message": "name, email, and password fields required." })
+      }
       const { name, email, password } = req.body;  
       const validate =  HelperUtils.validate();
 
@@ -50,8 +51,10 @@ router.post('/auth/signup', async (req, res) => {
 router.post('/auth/signin', async (req, res) => {
    try {
 
-      if (!req.body.email && !req.body.password) return res.status(400).json({ "message": "email and password fields required." })
-
+      if (!req.body.email && !req.body.password) { 
+        return res.status(400).json({ "message": "email and password fields required." })
+      }
+      
       const { email, password } = req.body;
       const validate = HelperUtils.validate();
 
@@ -83,9 +86,9 @@ router.post('/auth/signin', async (req, res) => {
 });
 
 
-// route to do a  quick check of the validity of the token
-// if false, the 'auth' route catches the error
-router.get('/verify', auth, (req, res) => {
+// quick check of the validity of the token
+// if not true, the 'verifyToken' route catches the error
+router.get('/verify', verifyToken, (req, res) => {
    try {
       res.json(true);
    } catch ({ message}) {

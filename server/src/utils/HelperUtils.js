@@ -2,7 +2,6 @@ import 'dotenv/config';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-
 class HelperUtils {
    static validate() {
       return {

@@ -15,7 +15,7 @@ app.use('/api/v1', users);
 // dashboard
 app.use('/api/v1', dashboard)
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 

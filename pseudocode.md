@@ -23,3 +23,19 @@
   - If the password is invalid, display a "400" status code with a message, "Invalid Password"
 - Generate the `jwt`
 - Send the token back to the user.
+
+
+## Authenticate/verifyToken
+
+- Check if the header is set.
+  - If it is not set, return a "401" and a message "unauthorized, header not set"
+- Get the token from the header using the __Bearer__ schema.
+
+  ```    
+      Authorization: Bearer <token>    
+  ```
+- If there's no token, return a "401" and a message "Unauthorized. please provide a token"
+- Verify the token with the secret
+   - if valid, attach the verified token to the `req.user`
+   - pass the middleware to the `next` processing pipeline
+   - if not valid, return a "400" status code with a message, "Invalid token"
