@@ -17,5 +17,5 @@ app.use('/api/v1', dashboard)
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, () => console.log(`Listening on port ${port}...`));
 
