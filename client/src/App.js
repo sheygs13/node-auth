@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState } from 'react';
 import Dashboard from './components/Dashboard';
 import Register from './components/Register';
 import Login from './components/Login';

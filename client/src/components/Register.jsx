@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 import '../App.css';
 
 const Register = ({ setAuth }) => {
@@ -25,9 +26,7 @@ const Register = ({ setAuth }) => {
 
         const response = await fetch('http://localhost:3000/api/v1/auth/signup', {
            method: "POST",
-           headers: {
-              "Content-Type": "application/json"
-           },
+           headers: { "Content-Type": "application/json" },
            body: JSON.stringify(body)
         });
 
@@ -80,8 +79,9 @@ const Register = ({ setAuth }) => {
                   placeholder="password" 
            />
         </div> 
-        <button className="btn btn-dark btn-block" type="submit">submit</button>    
+        <button className="btn btn-dark btn-block" type="submit">Sign Up</button>    
      </form>
+     <Link style={{ textDecoration: 'none', color: '#333' }} to="/login">Sign In</Link>
     </>
  )
 };

@@ -88,7 +88,7 @@ router.post('/auth/signin', async (req, res) => {
 
 // quick check of the validity of the token
 // if not true, the 'verifyToken' route catches the error
-router.get('/verify', verifyToken, (req, res) => {
+router.get('/auth/verify', verifyToken, (req, res) => {
    try {
       res.json(true);
    } catch ({ message}) {
