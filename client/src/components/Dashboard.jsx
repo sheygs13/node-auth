@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import {toast} from 'react-toastify';
 
 const Dashboard = ({ setAuth }) => {
  const [name, setName] = useState("");
@@ -7,11 +8,17 @@ const Dashboard = ({ setAuth }) => {
      try {
        const response = await fetch('http://localhost:3000/api/v1/dashboard',{
           method: "GET",
-          headers: { authorization : `Bearer ${JSON.parse(localStorage.getItem('token'))}`}
+          mode: 'cors',
+          headers: { Authorization : `Bearer ${JSON.parse(localStorage.getItem('token'))}`}
        })
 
        const data = await response.json();
-       setName(data.name)
+       // console.log(data)
+
+       if(data.name) {
+        setName(data.name);
+       }
+
      } catch ({ message }) {
        console.error(message);
      }
@@ -21,10 +28,12 @@ const Dashboard = ({ setAuth }) => {
     e.preventDefault();
     localStorage.removeItem('token');
     setAuth(false);
+    toast.success('Logged Out Successfully');
  }
 
  // the "[]" for useEffect to
  // make only one request
+ // when component is rendered
  useEffect(() => {
    getProfile()
  }, []);
@@ -35,7 +44,6 @@ const Dashboard = ({ setAuth }) => {
         <div className="card" style={{ width: '18rem' }}>
           <div className="card-body">
             <h5 className="card-title">Welcome {name}!</h5>
-            <p className="card-text">Please Log out.</p>
             <button onClick={logOut} className="btn btn-primary">Logout</button>
           </div>
         </div>
