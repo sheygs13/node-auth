@@ -1,5 +1,3 @@
-## node-auth
-
 ## Installation
 
 ```shell
