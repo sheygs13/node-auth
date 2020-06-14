@@ -6,8 +6,7 @@ const router = express.Router();
 
 router.get('/dashboard', verifyToken, async (req, res) => {
    try {
-      // req.user has the payload
-      // req.user refers to the _id of the user
+      // req.user(i.e. _id of the user) has the payload
       // res.json(req.user); 
 
      // only send the name to the user

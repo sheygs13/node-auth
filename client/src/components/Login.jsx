@@ -1,4 +1,5 @@
 import React, { useState }  from 'react';
+import {log} from console;
 import {Link} from 'react-router-dom';
 import {toast} from 'react-toastify';
 
@@ -27,10 +28,8 @@ const Login = ({ setAuth }) => {
         });
         
          const data = await response.json();
-         // console.log(data.token);
+         // log(data.token);
 
-         // handle cases where token
-         // or not
          if (data.token) {
             localStorage.setItem('token', JSON.stringify(data.token));
             setAuth(true);

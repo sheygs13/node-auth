@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
+import {log} from console;
 import {Link} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import '../App.css';
 
 const Register = ({ setAuth }) => {
- const [inputs, setInputs] = useState({
-    name: "",
-    email: "",
-    password: ""
- });
+ const [inputs, setInputs] = useState({ name: "", email: "", password: "" });
 
  const { name, email, password } = inputs;
 
@@ -32,18 +29,15 @@ const Register = ({ setAuth }) => {
         });
 
        const data = await response.json();
-       // console.log(data);
-
+       // log(data);
        if(data.token) {
           localStorage.setItem('token', JSON.stringify(data.token));
           setAuth(true);
           toast.success('Signed Up Successfully');
-       }
-       else {
+       } else {
           setAuth(false);
           toast.error(data.message);
        }
-
     } catch ({ message }) {
        console.error(message)
     }
