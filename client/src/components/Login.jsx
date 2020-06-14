@@ -1,5 +1,6 @@
 import React, { useState }  from 'react';
 import {Link} from 'react-router-dom';
+import {toast} from 'react-toastify';
 
 const Login = ({ setAuth }) => {
   const [inputs, setInputs] = useState({ email: "", password: "" });
@@ -21,13 +22,24 @@ const Login = ({ setAuth }) => {
 
         const response = await fetch('http://localhost:3000/api/v1/auth/signin', {
           method: "POST",
-          headers: {"Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body)
         });
+        
+         const data = await response.json();
+         // console.log(data.token);
 
-        const data = await response.json();
-        window.localStorage.setItem('token', JSON.stringify(data.token));
-        setAuth(true);
+         // handle cases where token
+         // or not
+         if (data.token) {
+            localStorage.setItem('token', JSON.stringify(data.token));
+            setAuth(true);
+            toast.success('Logged In Successfully')
+         } else {
+            setAuth(false);
+            toast.error(data.message)
+         }
+
      } catch ({ message }) {
         console.error(message);
      }

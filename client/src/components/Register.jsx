@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
+import {toast} from 'react-toastify';
 import '../App.css';
 
 const Register = ({ setAuth }) => {
@@ -31,8 +32,17 @@ const Register = ({ setAuth }) => {
         });
 
        const data = await response.json();
-       window.localStorage.setItem('token', JSON.stringify(data.token));
-       setAuth(true);
+       // console.log(data);
+
+       if(data.token) {
+          localStorage.setItem('token', JSON.stringify(data.token));
+          setAuth(true);
+          toast.success('Signed Up Successfully');
+       }
+       else {
+          setAuth(false);
+          toast.error(data.message);
+       }
 
     } catch ({ message }) {
        console.error(message)
