@@ -16,3 +16,6 @@
    npm run start:server
 ```
 
+## Fixes
+
+- User is unauthenticated (in sigup/signup route) and browser is refreshed, user is redirected to dashboard.
